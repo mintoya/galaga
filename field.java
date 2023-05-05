@@ -7,11 +7,10 @@ import java.util.Arrays;
 public class field extends JPanel {
     public field(JFrame frame){
         this.frame = frame;
-        inputReader reader = new inputReader(this);
+        frame.addKeyListener(new keyReader(this));
     }
     public JFrame frame;
-    final int pixelSize = 10;
-    ship currentBlock = new ship();
+    ship currentBlock = new ship(15);
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         paintBlox(currentBlock,g);
@@ -20,8 +19,9 @@ public class field extends JPanel {
         currentBlock.move(x,y);
         frame.repaint();
     }
+
     protected void paintBlox(ship b, Graphics g){
-        int size = pixelSize;
+        int size = b.getSize();
         for (int i = 0; i < b.getImmage().length; i++) {
             for (int j = 0; j < b.getImmage()[i].length; j++) {
                 int[] pos = b.position.get();
@@ -41,24 +41,7 @@ public class field extends JPanel {
 
 class inputReader {
     public inputReader(field field){
-        field.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyCode());
-                switch(e.getKeyCode()){
-                    case(38)->{
-                        field.moveship(0,-10);}//up
-                    case(39)->{
-                        field.moveship(-10,0);}//right
-                    case(37)->{
-                        field.moveship(10,0);}//left
-                    case(40)->{
-                        field.moveship(0,10);}//down
-                    case(32)->{}//space
-                }
 
-            }
-        });
     }
 
 }

@@ -8,8 +8,10 @@ public class main {
         frame.setLayout(null);
 
         frame.add(gField);
-        gField.setBounds(0,0,100,100);
+        frame.setBounds(0,0,500,500);
+        gField.setBounds(0,0,1000,1000);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.repaint();
     }
 }

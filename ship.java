@@ -9,14 +9,17 @@ public class ship {
     private final pixel r = new pixel(new Color(0xFF0000));
     private final pixel g = new pixel(new Color(0x4BFF00));
     private final pixel c = new pixel();
+    private final int size;
     pixel[][] blueShip = {
             {c,b,c},
             {c,b,c},
             {b,g,b},
             {r,b,r},
     };
-    public ship(){
+    public ship(int topLength){
         immage = blueShip;
+        size = topLength/immage[0].length;
+
     }
 
     public pixel[][] getImmage() {
@@ -24,6 +27,10 @@ public class ship {
     }
     public void move(int x, int y){
         position.change(x,y);
+    }
+
+    public int getSize() {
+        return size;
     }
 }
 class pixel{
@@ -45,7 +52,7 @@ class position {
         x = a[0];y=a[1];
     }
     public int[] get(){
-        return new int[]{x,y};
+        return new int[]{y,x};
     }
     public void change(int x, int y) {this.x+=x;this.y+=y;}
 }
