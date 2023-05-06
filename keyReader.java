@@ -17,12 +17,12 @@ public class keyReader extends KeyAdapter {
 
         if(e.getKeyCode()==up||e.getKeyCode()==down){
             if (goingy) {
-                return; // Ignore if already moving
+                return;
             }
         }
         if(e.getKeyCode()==right||e.getKeyCode()==left){
             if (goingx) {
-                return; // Ignore if already moving
+                return;
             }
         }
 
@@ -31,7 +31,9 @@ public class keyReader extends KeyAdapter {
             case(right)->{go(visible_move, 0);}
             case(left)->{go(-visible_move, 0);}
             case(down)->{go(0, visible_move);}
-            case(32)->{}//space
+            case(32)->{listener.addShot(
+                    new bullet(listener.player.position)
+            );}//space
         }
     }
 
