@@ -10,7 +10,7 @@ public class field extends JPanel {
     public JFrame frame;
 
     ArrayList<bullet> shots = new ArrayList<>();
-    ship player = new ship(15);
+    public ship player = new ship(15,this);
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         paintBlox(player,g);
@@ -33,7 +33,7 @@ public class field extends JPanel {
         int size = b.getSize();
         for (int i = 0; i < b.getImmage().length; i++) {
             for (int j = 0; j < b.getImmage()[i].length; j++) {
-                int[] pos = b.position.get();
+                int[] pos = b.getPosition().get();
                 if(b.getImmage()[i][j].iscolored){
                     g.setColor(b.getImmage()[i][j].getColor());
                     g.fillRect(

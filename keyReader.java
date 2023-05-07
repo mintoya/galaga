@@ -32,7 +32,7 @@ public class keyReader extends KeyAdapter {
             case(left)->{go(-visible_move, 0);}
             case(down)->{go(0, visible_move);}
             case(32)->{listener.addShot(
-                    new bullet(listener.player.position)
+                    new bullet(listener.player.getPosition(),listener)
             );}//space
         }
     }

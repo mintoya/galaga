@@ -24,6 +24,8 @@ class position {
     public int[] get(){
         return new int[]{y,x};
     }
+    public int[] getRev(){return new int[]{x,y};
+    }
     public void change(int x, int y) {this.x+=x;this.y+=y;}
 }
 
@@ -35,17 +37,23 @@ public class ship {
     private final pixel r = new pixel(new Color(0xFF0000));
     private final pixel g = new pixel(new Color(0x4BFF00));
     private final pixel c = new pixel();
-    protected final int size;
+    protected int size;
     pixel[][] blueShip = {
             {c,b,c},
             {c,b,c},
             {b,g,b},
             {r,b,r},
     };
-    public ship(int topLength){
+    private field field;
+    public ship(int topLength,field f){
+        field = f;
         immage = blueShip;
         size = topLength/immage[0].length;
 
+    }
+    public ship(){}
+    public position getPosition(){
+        return position;
     }
 
     public pixel[][] getImmage() {
@@ -59,7 +67,7 @@ public class ship {
         return size;
     }
     public void shoot(){
-        bullet shot= new bullet(position);
+        bullet shot= new bullet(position,field);
         shot.setDir(0,1);
 
     }
@@ -67,12 +75,12 @@ public class ship {
 
 class bullet extends ship{
     private velocity dir;
-    public bullet(position p){
-        super(10);
-        System.out.println("bullet made");
-        position = p;
+    public bullet(position p,field f){
+        super();
+        position = new position(p.getRev());
         pixel y = new pixel(new Color(0xD97F0A));
-        immage = new pixel[][]{{y,y},{y,y}};
+        immage = new pixel[][]{{y}};
+        size = f.player.getSize();
     }
     public void move(){
         position.change(dir.x,dir.y);
