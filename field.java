@@ -5,16 +5,19 @@ import java.util.ArrayList;
 public class field extends JPanel {
     public field(JFrame frame){
         this.frame = frame;
+        enemies.add(new enemy(15,this));
         frame.addKeyListener(new keyReader(this));
     }
     public JFrame frame;
 
     ArrayList<bullet> shots = new ArrayList<>();
+    ArrayList<enemy> enemies = new ArrayList<>();
     public ship player = new ship(15,this);
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         clean(0);
         paintBlox(player,g);
+        paintEnemys(g);
         paintShots(g);
     }
     public void addShot(bullet b){
@@ -41,6 +44,12 @@ public class field extends JPanel {
             clean(index+1);
         }
 
+    }
+
+    private void paintEnemys(Graphics g){
+        for (enemy e:enemies) {
+            paintBlox(e,g);
+        }
     }
 
     protected void paintShots(Graphics g){

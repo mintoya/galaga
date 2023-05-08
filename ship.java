@@ -27,24 +27,38 @@ class position {
     public int[] getRev(){return new int[]{x,y};
     }
     public void change(double x, double y) {this.x+=x;this.y+=y;}
+    public position difference(position p){
+        int newx = this.x-p.x;
+        int newy = this.y-p.y;
+        return new position(newx,newy);
+    }
+
+    public void add(position p) {
+        this.y+=p.y;
+        this.x+=p.x;
+    }
+    public void limit(int i){
+        y = y/Math.abs(y);y*=i;
+        x = x/Math.abs(x);x*=i;
+    }
 }
 
 
 public class ship {
     protected position position = new position(0,0);
     protected pixel[][] immage;
-    private final pixel b = new pixel(new Color(0x00ABF5));
-    private final pixel r = new pixel(new Color(0xFF0000));
-    private final pixel g = new pixel(new Color(0x4BFF00));
-    private final pixel c = new pixel();
+    protected final pixel b = new pixel(new Color(0x00ABF5));
+    protected final pixel r = new pixel(new Color(0xFF0000));
+    protected final pixel g = new pixel(new Color(0x4BFF00));
+    protected final pixel c = new pixel();
     protected int size;
-    pixel[][] blueShip = {
+    public pixel[][] blueShip = {
             {c,b,c},
             {c,b,c},
             {b,g,b},
             {r,b,r},
     };
-    private field field;
+    protected field field;
     public ship(int topLength,field f){
         field = f;
         immage = blueShip;
@@ -68,11 +82,11 @@ public class ship {
     }
     public void shoot(){
         bullet shot= new bullet(position,field);
-        shot.setDir(0,-2);
+        shot.setDir(0,-4);
         bullet shot1= new bullet(position,field);
-        shot1.setDir(1,-2);
+        shot1.setDir(1,-4);
         bullet shot2= new bullet(position,field);
-        shot2.setDir(-1,-2);
+        shot2.setDir(-1,-4);
 
         field.addShot(shot);
         field.addShot(shot1);
