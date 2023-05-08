@@ -7,8 +7,16 @@ public class field extends JPanel {
         this.frame = frame;
         enemies.add(new enemy(15,this));
         frame.addKeyListener(new keyReader(this));
+        addEnemys();
     }
     public JFrame frame;
+
+    ArrayList<position> places = new ArrayList<>();
+    public line path = new line(this,places);
+    public void addEnemys(){
+        enemies.addAll(path.subjcts);
+    }
+
 
     ArrayList<bullet> shots = new ArrayList<>();
     ArrayList<enemy> enemies = new ArrayList<>();
@@ -57,6 +65,7 @@ public class field extends JPanel {
             paintBlox(b,g);
         }
     }
+
     protected void paintBlox(ship b, Graphics g){
         int size = b.getSize();
         for (int i = 0; i < b.getImmage().length; i++) {

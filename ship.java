@@ -28,8 +28,8 @@ class position {
     }
     public void change(double x, double y) {this.x+=x;this.y+=y;}
     public position difference(position p){
-        int newx = this.x-p.x;
-        int newy = this.y-p.y;
+        int newx = -(this.x-p.x);
+        int newy = -(this.y-p.y);
         return new position(newx,newy);
     }
 
@@ -37,9 +37,26 @@ class position {
         this.y+=p.y;
         this.x+=p.x;
     }
-    public void limit(int i){
-        y = y/Math.abs(y);y*=i;
-        x = x/Math.abs(x);x*=i;
+    public position limit(int i){
+        if(y!=0){y = y/Math.abs(y);y*=i;}
+        if(x!=0){x = x/Math.abs(x);x*=i;}
+
+        return this;
+    }
+    public boolean equals(Object p){
+        if(!p.getClass().equals(this.getClass())){
+            return false;
+        }
+        position temp =  (position)p;
+        return (
+                temp.x==x&&temp.y==y
+                );
+    }
+    public double realDistanceFrom(position p){
+        return Math.pow((Math.pow((x-p.x),2)+Math.pow((y-p.y),2)),.5);
+    }
+    public String toString(){
+        return ("x: "+x+"y: "+y);
     }
 }
 

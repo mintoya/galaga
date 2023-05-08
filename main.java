@@ -18,6 +18,7 @@ public class main extends Thread {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.repaint();
+        int i = 0;
         while (true){
             try{
                 synchronized (this){
@@ -26,7 +27,11 @@ public class main extends Thread {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            i+=1;
             gField.next();
+            if(i%10==1){
+                gField.path.nextStep();
+            }
         }
     }
 }
