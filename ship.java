@@ -26,7 +26,7 @@ class position {
     }
     public int[] getRev(){return new int[]{x,y};
     }
-    public void change(int x, int y) {this.x+=x;this.y+=y;}
+    public void change(double x, double y) {this.x+=x;this.y+=y;}
 }
 
 
@@ -68,13 +68,22 @@ public class ship {
     }
     public void shoot(){
         bullet shot= new bullet(position,field);
-        shot.setDir(0,1);
+        shot.setDir(0,-2);
+        bullet shot1= new bullet(position,field);
+        shot1.setDir(1,-2);
+        bullet shot2= new bullet(position,field);
+        shot2.setDir(-1,-2);
+
+        field.addShot(shot);
+        field.addShot(shot1);
+        field.addShot(shot2);
 
     }
 }
 
 class bullet extends ship{
     private velocity dir;
+    private int dammege;
     public bullet(position p,field f){
         super();
         position = new position(p.getRev());
@@ -85,12 +94,15 @@ class bullet extends ship{
     public void move(){
         position.change(dir.x,dir.y);
     }
-    public void setDir(int x, int y){
+    public void setDir(double x, double y){
         dir = new velocity(x,y);
     }
+    public velocity getDir(){
+        return dir;
+    }
     class velocity{
-        int x;int y;
-        public velocity(int x,int y){
+        double x;double y;
+        public velocity(double x,double y){
             this.x = x;this.y = y;
         }
     }

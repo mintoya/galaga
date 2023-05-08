@@ -13,6 +13,7 @@ public class field extends JPanel {
     public ship player = new ship(15,this);
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+        clean(0);
         paintBlox(player,g);
         paintShots(g);
     }
@@ -22,6 +23,24 @@ public class field extends JPanel {
     public void moveship(int x, int y){
         player.move(x,y);
         frame.repaint();
+    }
+    public void next(){
+        for(bullet b:shots){
+            b.move();
+        }
+        frame.repaint();
+    }
+    public void clean(int index){
+        if(index>shots.size()-1){
+            return;
+        }
+        if(shots.get(index).getPosition().get()[0]<0){
+            shots.remove(index);
+        }
+        if(index<shots.size()-1){
+            clean(index+1);
+        }
+
     }
 
     protected void paintShots(Graphics g){

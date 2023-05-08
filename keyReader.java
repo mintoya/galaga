@@ -31,9 +31,8 @@ public class keyReader extends KeyAdapter {
             case(right)->{go(visible_move, 0);}
             case(left)->{go(-visible_move, 0);}
             case(down)->{go(0, visible_move);}
-            case(32)->{listener.addShot(
-                    new bullet(listener.player.getPosition(),listener)
-            );}//space
+            case(32)->{listener.player.shoot();
+            }//space
         }
     }
 
