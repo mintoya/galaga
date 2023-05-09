@@ -32,6 +32,10 @@ class position {
     public position(int x, int y){
         this.x = x;this.y = y;
     }
+    public position(Point p){
+        this.x = p.x;
+        this.y = p.y;
+    }
     public position(int[] a){
         x = a[0];y=a[1];
     }
@@ -40,6 +44,11 @@ class position {
     }
     public int[] getRev(){return new int[]{x,y};
     }
+    public position divideBy(int d){
+        return new position(
+                this.x/d,
+                this.y/d);
+    }
     public void change(double x, double y) {this.x+=x;this.y+=y;}
     public position difference(position p){
         int newx = -(this.x-p.x);
@@ -47,10 +56,12 @@ class position {
         return new position(newx,newy);
     }
 
+
     public void add(position p) {
         this.y+=p.y;
         this.x+=p.x;
     }
+
     public position limit(int i){
         if(y!=0){y = y/Math.abs(y);y*=i;}
         if(x!=0){x = x/Math.abs(x);x*=i;}
@@ -96,6 +107,10 @@ public class ship {
         immage = blueShip;
         size = topLength/immage[0].length;
 
+    }
+    public void nextStep(position p){
+        position to =position.difference(p);
+        position.add(to.limit(1));
     }
     public ship(){}
     public position getPosition(){

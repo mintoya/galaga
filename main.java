@@ -9,12 +9,11 @@ public class main extends Thread {
     public void run()
     {
         JFrame frame = new JFrame();
-        field gField = new field(frame);
+        frame.setBounds(0,0,500,1080);
+        // Always setBounds before initialising field
+        field gField = new field(frame,true);
         frame.setLayout(null);
 
-        frame.add(gField);
-        frame.setBounds(0,0,500,1080);
-        gField.setBounds(frame.getBounds());
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.repaint();

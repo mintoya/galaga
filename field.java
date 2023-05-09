@@ -3,8 +3,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class field extends JPanel {
-    public field(JFrame frame){
+    private boolean isMouseControllled = true;
+
+    public field(JFrame frame,boolean isMouseControllled){
+        this.isMouseControllled = isMouseControllled;
         this.frame = frame;
+        frame.add(this);
+        setBounds(frame.getBounds());
         frame.addKeyListener(new keyReader(this));
         addEnemys();
     }
@@ -35,6 +40,13 @@ public class field extends JPanel {
         frame.repaint();
     }
     public void next(){
+        if(isMouseControllled){
+            position mp = mousepos();
+            position fp = new position(frame.getLocationOnScreen().x,frame.getLocationOnScreen().y);
+            mp = new position(mp.getX()-fp.getX(),mp.getY()-fp.getY());
+            position adj = mp.divideBy(5);
+            player.nextStep(adj);}
+        
         for(bullet b:shots){
             b.move();
         }
@@ -54,6 +66,9 @@ public class field extends JPanel {
             }
         }
     }
+    public position mousepos(){
+        position m = new position (MouseInfo.getPointerInfo().getLocation());
+        return m;}
     public void clean(){
         for (int i = 0; i < shots.size(); i++) {
         if(shots.get(i).getPosition().get()[0]<0){

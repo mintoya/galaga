@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class enemy extends ship{
     public pixel[][] blueShip = {
@@ -32,6 +33,9 @@ public class enemy extends ship{
 class line{
     ArrayList<enemy> subjcts = new ArrayList<>();
     private ArrayList<position> places;
+    private position[] sSquare = {
+            
+    };
     private int step =0;
     public boolean isEmpty(){
         for (enemy e:subjcts) {
@@ -92,4 +96,12 @@ class line{
         step += 1;
 
     }
+
+    public ArrayList<ArrayList<position>> a_to_A(position[][] b){
+        ArrayList<ArrayList<position>> t = new ArrayList<>();
+        for (position[] booleans : b) {
+            t.add( new ArrayList<>(Arrays.asList(booleans)));
+        }
+        return t;
+    }//taken from my tetris project
 }
