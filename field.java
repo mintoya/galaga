@@ -15,9 +15,6 @@ public class field extends JPanel {
     public void addEnemys(){
         enemies.addAll(path.subjcts);
     }
-    public void spawn(){
-        path = new line(this,places);
-    }
 
 
     ArrayList<bullet> shots = new ArrayList<>();
@@ -72,7 +69,7 @@ public class field extends JPanel {
             }
         }
         if(path.isEmpty()){
-            spawn();
+            path = new line(this,places);
             addEnemys();
         }
 
