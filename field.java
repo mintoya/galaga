@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class field extends JPanel {
     public field(JFrame frame){
         this.frame = frame;
-        enemies.add(new enemy(15,this));
         frame.addKeyListener(new keyReader(this));
         addEnemys();
     }
