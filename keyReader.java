@@ -55,7 +55,7 @@ public class keyReader extends KeyAdapter {
             thread = new Thread(() -> {
                 while (goingx) {
                     waitFor(50);
-                    listener.moveship(x, y);
+                    listener.moveShip(x, y);
                 }
             });
         }
@@ -64,7 +64,7 @@ public class keyReader extends KeyAdapter {
             thread = new Thread(() -> {
                 while (goingy) {
                     waitFor(50);
-                    listener.moveship(x, y);
+                    listener.moveShip(x, y);
                 }
             });
         }

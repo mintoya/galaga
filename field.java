@@ -25,12 +25,12 @@ public class field extends JPanel {
         paintBlox(player,g);
         paintEnemys(g);
         paintShots(g);
-        dammageEnemies();
+        damageEnemies();
     }
     public void addShot(bullet b){
         shots.add(b);
     }
-    public void moveship(int x, int y){
+    public void moveShip(int x, int y){
         player.move(x,y);
         frame.repaint();
     }
@@ -41,15 +41,14 @@ public class field extends JPanel {
         clean();
         frame.repaint();
     }
-    public void dammageEnemies(){
+    public void damageEnemies(){
         int hitbox = 4;
-        for (int i = 0; i<enemies.size();i+=1) {
-            enemy e = enemies.get(i);
-            for (int o = 0; o<shots.size();o+=1) {
+        for (enemy e : enemies) {
+            for (int o = 0; o < shots.size(); o += 1) {
                 bullet s = shots.get(o);
-                if(s.getPosition().realDistanceFrom(e.getCenterpos())<hitbox){
+                if (s.getPosition().realDistanceFrom(e.getCenterpos()) < hitbox) {
                     shots.remove(o);
-                    o-=1;
+                    o -= 1;
                     e.dammage(15);
                 }
             }

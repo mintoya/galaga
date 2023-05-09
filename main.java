@@ -13,8 +13,8 @@ public class main extends Thread {
         frame.setLayout(null);
 
         frame.add(gField);
-        frame.setBounds(0,0,500,500);
-        gField.setBounds(0,0,1000,1000);
+        frame.setBounds(0,0,500,1080);
+        gField.setBounds(frame.getBounds());
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.repaint();

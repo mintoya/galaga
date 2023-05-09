@@ -76,7 +76,7 @@ class position {
 
 
 public class ship {
-    protected position position = new position(0,0);
+    protected position position = new position(250/5,700/5);
 
     protected pixel[][] immage;
     protected final pixel b = new pixel(new Color(0x00ABF5));
@@ -135,7 +135,7 @@ public class ship {
 
 class bullet extends ship{
     private velocity dir;
-    private int health;
+    private int health = 100;
     public bullet(position p,field f){
         super();
         position = new position(p.getRev());
