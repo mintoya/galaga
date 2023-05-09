@@ -39,17 +39,34 @@ public class field extends JPanel {
         player.move(x,y);
         frame.repaint();
     }
-    public void next(){
+    public void next(int f){
         if(isMouseControllled){
             position mp = mousepos();
             position fp = new position(frame.getLocationOnScreen().x,frame.getLocationOnScreen().y);
             mp = new position(mp.getX()-fp.getX(),mp.getY()-fp.getY());
             position adj = mp.divideBy(5);
             player.nextStep(adj);}
-        
-        for(bullet b:shots){
-            b.move();
+
+        ArrayList<bullet> temp = new ArrayList<>(shots);
+        for(bullet b:temp){
+            if (b.getDir().x==0) {
+                if(f%b.getDir().y==0){b.move(1);}
+            }
+            else if(b.getDir().y==0){
+                if(f%b.getDir().x==0){b.move(0);}
+            }
+            else {
+                if (f % b.getDir().x == 0) {
+                    b.move(0);
+                }
+                if (f % b.getDir().y == 0) {
+                    b.move(1);
+                }
+            }
         }
+        shots = temp;
+
+
         clean();
         frame.repaint();
     }
@@ -58,7 +75,7 @@ public class field extends JPanel {
         for (enemy e : enemies) {
             for (int o = 0; o < shots.size(); o += 1) {
                 bullet s = shots.get(o);
-                if (s.getPosition().realDistanceFrom(e.getCenterpos()) < hitbox) {
+                if (s!=null&&s.getPosition().realDistanceFrom(e.getCenterpos()) < hitbox) {
                     shots.remove(o);
                     o -= 1;
                     e.dammage(15);
@@ -71,7 +88,7 @@ public class field extends JPanel {
         return m;}
     public void clean(){
         for (int i = 0; i < shots.size(); i++) {
-        if(shots.get(i).getPosition().get()[0]<0){
+        if(shots.get(i)!=null&&shots.get(i).getPosition().get()[0]<0){
             shots.remove(i);
             i-=1;
         }
@@ -102,20 +119,23 @@ public class field extends JPanel {
     }
 
     protected void paintBlox(ship b, Graphics g){
-        int size = b.getSize();
-        for (int i = 0; i < b.getImmage().length; i++) {
-            for (int j = 0; j < b.getImmage()[i].length; j++) {
-                int[] pos = b.getPosition().get();
-                if(b.getImmage()[i][j].iscolored){
-                    g.setColor(b.getImmage()[i][j].getColor());
-                    g.fillRect(
-                            size*(j)+((pos[1]*size)),
-                            size*(i)+((pos[0]*size)),
-                            size,size);
 
+        if (b!=null) {
+            int size = b.getSize();
+            for (int i = 0; i < b.getImmage().length; i++) {
+                for (int j = 0; j < b.getImmage()[i].length; j++) {
+                    int[] pos = b.getPosition().get();
+                    if(b.getImmage()[i][j].iscolored){
+                        g.setColor(b.getImmage()[i][j].getColor());
+                        g.fillRect(
+                                size*(j)+((pos[1]*size)),
+                                size*(i)+((pos[0]*size)),
+                                size,size);
+
+                    }
                 }
-            }
 
+            }
         }
     }
 }

@@ -135,16 +135,16 @@ public class ship {
     }
     public void shoot(){
         bullet shot= new bullet(position,field);
-        shot.setDir(0,-4);
+        shot.setDir(0,-10);
 
         field.addShot(shot);
 
 
         //<editor-fold desc="rest of 2 bullets">
         bullet shot1= new bullet(position,field);
-        shot1.setDir(1,-4);
+        shot1.setDir(20,-10);
         bullet shot2= new bullet(position,field);
-        shot2.setDir(-1,-4);
+        shot2.setDir(-20,-10);
         field.addShot(shot1);
         field.addShot(shot2);
         //</editor-fold>
@@ -158,22 +158,26 @@ class bullet extends ship{
     public bullet(position p,field f){
         super();
         position = new position(p.getRev());
-        pixel y = new pixel(new Color(0xD97F0A));
+        pixel y = new pixel(new Color(0x650000));
         immage = new pixel[][]{{y}};
         size = f.player.getSize();
     }
-    public void move(){
-        position.change(dir.x,dir.y);
+    public void move(int a){
+        if(a==0){
+            position.change(Math.signum(dir.x),0);
+        }else{
+            position.change(0,Math.signum(dir.y));
+        }
     }
-    public void setDir(double x, double y){
+    public void setDir(int x, int y){
         dir = new velocity(x,y);
     }
     public velocity getDir(){
         return dir;
     }
     class velocity{
-        double x;double y;
-        public velocity(double x,double y){
+        int x;int y;
+        public velocity(int x,int y){
             this.x = x;this.y = y;
         }
     }

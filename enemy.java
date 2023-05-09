@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class enemy extends ship{
     public pixel[][] blueShip = {
@@ -34,6 +35,16 @@ class line{
     ArrayList<enemy> subjcts = new ArrayList<>();
     private ArrayList<position> places;
     private position[] sSquare = {
+            new position(-20,10),
+            new position(100,10),
+            new position(100,30),
+            new position(-20,30),
+            new position(-20,50),
+            new position(100,50),
+            new position(100,70),
+            new position(-20,70),
+            new position(-20,90),
+            new position(100,90),
             
     };
     private int step =0;
@@ -58,6 +69,7 @@ class line{
         places.add(new position(50,100));
         places.add(new position(100,50));
         places.add(new position(50,0));
+        this.places = a_to_A(sSquare);
     }
     public line(field f,ArrayList<position> places,position p){
 
@@ -74,6 +86,7 @@ class line{
         for (enemy e:subjcts) {
             e.position = new position(p);
         }
+        this.places = a_to_A(sSquare);
     }
     public void nextStep(int togo){
         for (int i = 0; i < step / 30 && i < subjcts.size(); i += 1) {
@@ -97,11 +110,7 @@ class line{
 
     }
 
-    public ArrayList<ArrayList<position>> a_to_A(position[][] b){
-        ArrayList<ArrayList<position>> t = new ArrayList<>();
-        for (position[] booleans : b) {
-            t.add( new ArrayList<>(Arrays.asList(booleans)));
-        }
-        return t;
-    }//taken from my tetris project
+    public ArrayList<position> a_to_A(position[] b){
+        return new ArrayList<>(List.of(b));
+    }
 }

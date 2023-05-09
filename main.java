@@ -21,13 +21,13 @@ public class main extends Thread {
         while (true){
             try{
                 synchronized (this){
-                    wait(10);
+                    wait(5);
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             i+=1;
-            gField.next();
+            gField.next(i);
 
             gField.path.nextStep(i);
 
