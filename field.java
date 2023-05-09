@@ -15,6 +15,9 @@ public class field extends JPanel {
     public void addEnemys(){
         enemies.addAll(path.subjcts);
     }
+    public void spawn(){
+        path = new line(this,places);
+    }
 
 
     ArrayList<bullet> shots = new ArrayList<>();
@@ -22,10 +25,10 @@ public class field extends JPanel {
     public ship player = new ship(15,this);
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        clean(0);
         paintBlox(player,g);
         paintEnemys(g);
         paintShots(g);
+        dammageEnemies();
     }
     public void addShot(bullet b){
         shots.add(b);
@@ -38,17 +41,39 @@ public class field extends JPanel {
         for(bullet b:shots){
             b.move();
         }
+        clean();
         frame.repaint();
     }
-    public void clean(int index){
-        if(index>shots.size()-1){
-            return;
+    public void dammageEnemies(){
+        int hitbox = 4;
+        for (int i = 0; i<enemies.size();i+=1) {
+            enemy e = enemies.get(i);
+            for (int o = 0; o<shots.size();o+=1) {
+                bullet s = shots.get(o);
+                if(s.getPosition().realDistanceFrom(e.getCenterpos())<hitbox){
+                    shots.remove(o);
+                    o-=1;
+                    e.dammage(15);
+                }
+            }
         }
-        if(shots.get(index).getPosition().get()[0]<0){
-            shots.remove(index);
+    }
+    public void clean(){
+        for (int i = 0; i < shots.size(); i++) {
+        if(shots.get(i).getPosition().get()[0]<0){
+            shots.remove(i);
+            i-=1;
         }
-        if(index<shots.size()-1){
-            clean(index+1);
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            if(enemies.get(i).isDead()){
+                enemies.remove(i);
+                i-=1;
+            }
+        }
+        if(path.isEmpty()){
+            spawn();
+            addEnemys();
         }
 
     }

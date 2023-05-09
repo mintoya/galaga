@@ -15,7 +15,21 @@ class pixel{
 }
 class position {
     private int x,y;
-    public position(int x,int y){
+
+    public position(position p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public position(int x, int y){
         this.x = x;this.y = y;
     }
     public position(int[] a){
@@ -63,6 +77,7 @@ class position {
 
 public class ship {
     protected position position = new position(0,0);
+
     protected pixel[][] immage;
     protected final pixel b = new pixel(new Color(0x00ABF5));
     protected final pixel r = new pixel(new Color(0xFF0000));
@@ -86,6 +101,12 @@ public class ship {
     public position getPosition(){
         return position;
     }
+    public position getCenterpos(){
+        return new position(
+                position.getX()+immage.length/2,
+                position.getY()+immage[0].length/2
+        );
+    }
 
     public pixel[][] getImmage() {
         return immage;
@@ -100,21 +121,21 @@ public class ship {
     public void shoot(){
         bullet shot= new bullet(position,field);
         shot.setDir(0,-4);
-        bullet shot1= new bullet(position,field);
-        shot1.setDir(1,-4);
-        bullet shot2= new bullet(position,field);
-        shot2.setDir(-1,-4);
+//        bullet shot1= new bullet(position,field);
+//        shot1.setDir(1,-4);
+//        bullet shot2= new bullet(position,field);
+//        shot2.setDir(-1,-4);
 
         field.addShot(shot);
-        field.addShot(shot1);
-        field.addShot(shot2);
+//        field.addShot(shot1);
+//        field.addShot(shot2);
 
     }
 }
 
 class bullet extends ship{
     private velocity dir;
-    private int dammege;
+    private int health;
     public bullet(position p,field f){
         super();
         position = new position(p.getRev());

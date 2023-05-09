@@ -7,6 +7,15 @@ public class enemy extends ship{
             {r,c,c,r},
             {r,c,c,r},
     };
+    private int health = 100;
+
+    public void dammage(int d){
+        health-=d;
+        velocity = 1;
+    }
+    public boolean isDead(){
+        return health<1;
+    }
     public int velocity = 5;
     public int realVelocity = velocity;
     public int placeInLine=0;
@@ -24,6 +33,14 @@ class line{
     ArrayList<enemy> subjcts = new ArrayList<>();
     private ArrayList<position> places;
     private int step =0;
+    public boolean isEmpty(){
+        for (enemy e:subjcts) {
+            if(!e.isDead()){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public line(field f,ArrayList<position> places){
 
@@ -37,6 +54,22 @@ class line{
         places.add(new position(50,100));
         places.add(new position(100,50));
         places.add(new position(50,0));
+    }
+    public line(field f,ArrayList<position> places,position p){
+
+        this.places = places;
+
+        subjcts.add(new enemy(15,f));
+        subjcts.add(new enemy(15,f));
+        subjcts.add(new enemy(15,f));
+        subjcts.add(new enemy(15,f));
+        places.add(new position(0 ,50));
+        places.add(new position(50,100));
+        places.add(new position(100,50));
+        places.add(new position(50,0));
+        for (enemy e:subjcts) {
+            e.position = new position(p);
+        }
     }
     public void nextStep(){
 
