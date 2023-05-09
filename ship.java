@@ -121,14 +121,18 @@ public class ship {
     public void shoot(){
         bullet shot= new bullet(position,field);
         shot.setDir(0,-4);
-//        bullet shot1= new bullet(position,field);
-//        shot1.setDir(1,-4);
-//        bullet shot2= new bullet(position,field);
-//        shot2.setDir(-1,-4);
 
         field.addShot(shot);
-//        field.addShot(shot1);
-//        field.addShot(shot2);
+
+
+        //<editor-fold desc="rest of 2 bullets">
+        bullet shot1= new bullet(position,field);
+        shot1.setDir(1,-4);
+        bullet shot2= new bullet(position,field);
+        shot2.setDir(-1,-4);
+        field.addShot(shot1);
+        field.addShot(shot2);
+        //</editor-fold>
 
     }
 }
