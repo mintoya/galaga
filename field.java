@@ -11,7 +11,7 @@ public class field extends JPanel {
     public JFrame frame;
 
     ArrayList<position> places = new ArrayList<>();
-    public line path = new line(this,places);
+    public line path = new line(this,places,new position(-5,-5));
     public void addEnemys(){
         enemies.addAll(path.subjcts);
     }

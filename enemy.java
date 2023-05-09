@@ -11,12 +11,12 @@ public class enemy extends ship{
 
     public void dammage(int d){
         health-=d;
-        velocity = 1;
+        velocity = 2;
     }
     public boolean isDead(){
         return health<1;
     }
-    public int velocity = 5;
+    public int velocity = 1;
     public int realVelocity = velocity;
     public int placeInLine=0;
 
@@ -71,28 +71,25 @@ class line{
             e.position = new position(p);
         }
     }
-    public void nextStep(){
-
-        for(int i = 0; i<step/2&&i<subjcts.size();i+=1) {
+    public void nextStep(int togo){
+        for (int i = 0; i < step / 30 && i < subjcts.size(); i += 1) {
             enemy a = subjcts.get(i);
-            position to = a.position.difference(places.get(a.placeInLine));
-            a.position.add(to.limit(a.velocity));
+            if(togo%a.velocity==0)
+            {
+                position to = a.position.difference(places.get(a.placeInLine));
+                a.position.add(to.limit(1));
 
-            if (a.position.equals(places.get(a.placeInLine)) && a.placeInLine < places.size() - 1) {
-                a.placeInLine += 1;
-                a.velocity = a.realVelocity;
-            }
-            if (a.position.realDistanceFrom(places.get(a.placeInLine)) <= Math.pow(a.velocity, 2)) {
-
-                a.velocity = 1;
-            }
-            if (a.placeInLine == places.size() - 1 && a.position.equals(places.get(places.size() - 1))) {
-                a.placeInLine = 0;
-                a.velocity = a.realVelocity;
+                if (a.position.equals(places.get(a.placeInLine)) && a.placeInLine < places.size() - 1) {
+                    a.placeInLine += 1;
+                }
+                if (a.placeInLine == places.size() - 1 && a.position.equals(places.get(places.size() - 1))) {
+                    a.placeInLine = 0;
+                    a.velocity = a.realVelocity;
+                }
             }
 
         }
-        step+=1;
+        step += 1;
 
     }
 }

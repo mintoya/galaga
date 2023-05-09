@@ -29,9 +29,9 @@ public class main extends Thread {
             }
             i+=1;
             gField.next();
-            if(i%10==1){
-                gField.path.nextStep();
-            }
+
+            gField.path.nextStep(i);
+
         }
     }
 }
