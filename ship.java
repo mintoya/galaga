@@ -133,16 +133,26 @@ public class ship {
     public int getSize() {
         return size;
     }
-    public void shootGun(){
-        bullet[] shogun = {
-                new bullet(position,field,
-                        new velocity(0,-1)),
-                new bullet(position,field,
-                        new velocity(15,-2)),
-                new bullet(position,field,
-                        new velocity(-15,-2))
-        };
-        for (bullet b:shogun) {
+    public void shootGun(String type){
+        bullet[] shotgun = new bullet[1];
+        switch (type){
+            case("shotgun")->{
+                shotgun = new bullet[]{
+                        new bullet(position, field,
+                                new velocity(0, -2)),
+
+
+                        new bullet(position, field,
+                                new velocity(15, -2)),
+                        new bullet(position, field,
+                                new velocity(-15, -2)),
+                        new bullet(position, field,
+                                new velocity(30, -3)),
+                        new bullet(position, field,
+                                new velocity(-30, -3))
+                };}
+        }
+        for (bullet b:shotgun) {
             field.addShot(b);
         }
     }
@@ -158,11 +168,6 @@ class bullet extends ship{
         pixel y = new pixel(new Color(0x650000));
         immage = new pixel[][]{{y}};
         size = f.player.getSize();
-    }
-
-    public bullet(bullet b) {
-        dir = b.dir;
-        position = b.position;
     }
 
     public void move(int a){

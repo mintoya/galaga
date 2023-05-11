@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class field extends JPanel {
-    private boolean isMouseControllled = true;
+    private final boolean isMouseControllled;
 
     public field(JFrame frame,boolean isMouseControllled){
         this.isMouseControllled = isMouseControllled;
@@ -49,18 +49,21 @@ public class field extends JPanel {
 
         ArrayList<bullet> temp = new ArrayList<>(shots);
         for(bullet b:temp){
-            if (b.getDir().x==0) {
-                if(f%b.getDir().y==0){b.move(1);}
-            }
-            else if(b.getDir().y==0){
-                if(f%b.getDir().x==0){b.move(0);}
-            }
-            else {
-                if (f % b.getDir().x == 0) {
-                    b.move(0);
+            if (b!=null) {
+                if (b.getDir().x==0) {
+                    if(isDiv(f,b.getDir().y)){b.move(1);}
                 }
-                if (f % b.getDir().y == 0) {
-                    b.move(1);
+                else if(b.getDir().y==0){
+                    if(isDiv(f,b.getDir().x)){b.move(0);}
+                }
+                else {
+                    if (isDiv(f,b.getDir().x)) {
+                        b.move(0);
+                    }
+                    if (isDiv(f,b.getDir().y)) {
+                        b.move(1);
+                    }
+                    //System.out.println(isDiv(f,b.getDir().y));
                 }
             }
         }
@@ -70,6 +73,13 @@ public class field extends JPanel {
         clean();
         frame.repaint();
     }
+    public boolean isDiv(int a,int b){
+        if(b==0){return true;}
+        return a%Math.abs(b)==0;
+
+    }
+
+
     public void damageEnemies(){
         int hitbox = 4;
         for (enemy e : enemies) {
@@ -84,8 +94,7 @@ public class field extends JPanel {
         }
     }
     public position mousepos(){
-        position m = new position (MouseInfo.getPointerInfo().getLocation());
-        return m;}
+        return new position (MouseInfo.getPointerInfo().getLocation());}
     public void clean(){
         for (int i = 0; i < shots.size(); i++) {
         if(shots.get(i)!=null&&shots.get(i).getPosition().get()[0]<0){
