@@ -27,8 +27,8 @@ public class main extends Thread {
                 throw new RuntimeException(e);
             }
             i+=1;
+            
             gField.next(i);
-
             gField.path.nextStep(i);
 
         }

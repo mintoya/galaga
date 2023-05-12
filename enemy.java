@@ -34,6 +34,7 @@ public class enemy extends ship{
 class line{
     ArrayList<enemy> subjcts = new ArrayList<>();
     private ArrayList<position> places;
+    //region Description
     private position[] sSquare = {
             new position(-20,10),
             new position(100,10),
@@ -47,6 +48,7 @@ class line{
             new position(100,90),
             
     };
+    //endregion
     private int step =0;
     public boolean isEmpty(){
         for (enemy e:subjcts) {
@@ -71,18 +73,12 @@ class line{
         places.add(new position(50,0));
         this.places = a_to_A(sSquare);
     }
-    public line(field f,ArrayList<position> places,position p){
+    public line(field f,ArrayList<position> places,position p,int number){
 
         this.places = places;
-
-        subjcts.add(new enemy(15,f));
-        subjcts.add(new enemy(15,f));
-        subjcts.add(new enemy(15,f));
-        subjcts.add(new enemy(15,f));
-        places.add(new position(0 ,50));
-        places.add(new position(50,100));
-        places.add(new position(100,50));
-        places.add(new position(50,0));
+        for (int i = 0; i < number; i++) {
+            subjcts.add(new enemy(15,f));
+        }
         for (enemy e:subjcts) {
             e.position = new position(p);
         }
@@ -109,8 +105,19 @@ class line{
         step += 1;
 
     }
+    public void nextPosition(int togo){
+        for (int i = 0; i < step / 30 && i < subjcts.size(); i += 1) {
+            enemy a = subjcts.get(i);
+            if(togo%a.velocity==0)
+            {
+                position to = a.position.difference(places.get(a.placeInLine));
+                a.position.add(to.limit(1));
+            }
 
-    public ArrayList<position> a_to_A(position[] b){
+        }
+        step += 1;}
+
+    protected ArrayList<position> a_to_A(position[] b){
         return new ArrayList<>(List.of(b));
     }
 }
