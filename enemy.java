@@ -28,6 +28,7 @@ public class enemy extends ship{
     }
     public enemy(int topLength,field f,int p){
         super(topLength,f);
+        immage = blueShip;
         placeInLine = p;
     }
 }
@@ -105,6 +106,21 @@ class line{
         step += 1;
 
     }
+    public void area(field f, int h, int w){
+        subjcts.clear();
+        int sa = 15,sb = 20;
+        position[] p = new position[h*w];
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                p[(i*h)+j] = new position(
+                        i*sb,j*sa
+                );
+                System.out.println(p[(i*h)+j]);
+                subjcts.add(new enemy(15,f,i*h+j));
+            }
+        }
+        places = a_to_A(p);
+    }
     public void nextPosition(int togo){
         for (int i = 0; i < step / 30 && i < subjcts.size(); i += 1) {
             enemy a = subjcts.get(i);
@@ -115,7 +131,8 @@ class line{
             }
 
         }
-        step += 1;}
+        step += 1;
+    }
 
     protected ArrayList<position> a_to_A(position[] b){
         return new ArrayList<>(List.of(b));

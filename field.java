@@ -110,6 +110,7 @@ public class field extends JPanel {
         }
         if(path.isEmpty()){
             path = new line(this,places,new position(-20,-20),10);
+            path.area(this,5,5);
             addEnemys();
         }
 
