@@ -12,11 +12,12 @@ public class field extends JPanel {
         setBounds(frame.getBounds());
         frame.addKeyListener(new keyReader(this));
         addEnemys();
+        path.subjcts.clear();
     }
     public JFrame frame;
 
     ArrayList<position> places = new ArrayList<>();
-    public line path = new line(this,places,new position(-5,-5),20);
+    public line path = new line(this,places,new position(10,10),20);
     public void addEnemys(){
         enemies.addAll(path.subjcts);
     }

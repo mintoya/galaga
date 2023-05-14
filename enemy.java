@@ -9,6 +9,7 @@ public class enemy extends ship{
             {r,c,c,r},
             {r,c,c,r},
     };
+    public boolean hasbeen=true;
     private int health = 100;
 
     public void dammage(int d){
@@ -124,11 +125,30 @@ class line{
     public void nextPosition(int togo){
         for (int i = 0; i < step / 30 && i < subjcts.size(); i += 1) {
             enemy a = subjcts.get(i);
-            if(togo%a.velocity==0)
-            {
-                position to = a.position.difference(places.get(a.placeInLine));
-                a.position.add(to.limit(1));
+            if(a.hasbeen){
+                if (!a.position.equals(places.get(a.placeInLine))) {
+                    if(togo%a.velocity==0)
+                    {
+                        position to = a.position.difference(places.get(a.placeInLine));
+                        a.position.add(to.limit(1));
+                    }
+                }else{
+                    a.hasbeen = !a.hasbeen;
+                }
+
+            }else{
+                if (!a.position.equals(places.get(a.placeInLine).rAdd(new position(0,50)))) {
+                    if(togo%a.velocity==0)
+                    {
+                        position to = a.position.difference(places.get(a.placeInLine).rAdd(new position(0,50)));
+                        a.position.add(to.limit(1));
+                    }
+                }else{
+                    a.hasbeen = !a.hasbeen;
+                }
             }
+
+
 
         }
         step += 1;

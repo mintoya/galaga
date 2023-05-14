@@ -61,6 +61,9 @@ class position {
         this.y+=p.y;
         this.x+=p.x;
     }
+    public position rAdd(position p){
+        return new position(this.x+p.x,this.y+p.y);
+    }
 
     public position limit(int i){
         if(y!=0){y = y/Math.abs(y);y*=i;}
