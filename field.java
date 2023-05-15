@@ -11,17 +11,27 @@ public class field extends JPanel {
         frame.add(this);
         setBounds(frame.getBounds());
         frame.addKeyListener(new keyReader(this));
-        addEnemys();
-        path.subjcts.clear();
+        startStage();
     }
     public JFrame frame;
 
     ArrayList<position> places = new ArrayList<>();
-    public line path = new line(this,places,new position(10,10),20);
+    public line path;
+    public int stage = 2;
     public void addEnemys(){
         enemies.addAll(path.subjcts);
     }
 
+    public void startStage(){
+        switch (stage){
+            case(1)->{
+                path = new line(this,places,new position(10,10),20);}
+            case(2)->{
+                path = new line(this,5,5);
+            }
+        }
+        addEnemys();
+    }
 
     ArrayList<bullet> shots = new ArrayList<>();
     ArrayList<enemy> enemies = new ArrayList<>();
@@ -79,6 +89,14 @@ public class field extends JPanel {
         return a%Math.abs(b)==0;
 
     }
+    public void nextMove(int i){
+        switch (stage){
+            case(1)->{path.nextStep(i);}
+            case(2)->{path.nextPosition(i);}
+        }
+
+
+    }
 
 
     public void damageEnemies(){
@@ -110,8 +128,7 @@ public class field extends JPanel {
             }
         }
         if(path.isEmpty()){
-            path = new line(this,places,new position(-20,-20),10);
-            path.area(this,5,5);
+            startStage();
             addEnemys();
         }
 

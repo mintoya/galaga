@@ -29,7 +29,8 @@ public class main extends Thread {
             i+=1;
             
             gField.next(i);
-            gField.path.nextPosition(i);
+
+            gField.nextMove(i);
 
         }
     }

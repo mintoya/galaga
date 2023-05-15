@@ -4,17 +4,18 @@ import java.util.List;
 
 public class enemy extends ship{
     public pixel[][] blueShip = {
+            {c,r,r,c},
             {r,r,r,r},
             {c,r,r,c},
             {r,c,c,r},
-            {r,c,c,r},
+            {r,b,b,r},
     };
     public boolean hasbeen=true;
-    private int health = 100;
+    protected int health = 100;
 
     public void dammage(int d){
         health-=d;
-        velocity = 2;
+        velocity = 5;
     }
     public boolean isDead(){
         return health<1;
@@ -31,6 +32,28 @@ public class enemy extends ship{
         super(topLength,f);
         immage = blueShip;
         placeInLine = p;
+    }
+}
+class boss extends enemy{
+    ArrayList<position> leftPlaces  = new ArrayList<>();
+    ArrayList<enemy>    leftEnemy   = new ArrayList<>();
+    ArrayList<position> rightPlaces = new ArrayList<>();
+    ArrayList<enemy>    rightEnemy  = new ArrayList<>();
+    private position rightS[] = {};
+    private position leftS[] =  {};
+    public pixel[][] blueShip = {
+            {b,c,c,g,g,c,c,b},
+            {b,c,c,g,g,c,c,b},
+            {b,b,b,g,g,b,b,b},
+            {c,c,c,g,g,c,c,c},
+            {c,c,g,g,g,g,c,c},
+            {c,c,g,r,r,g,c,c},
+    };
+
+    public boss(field f, int p) {
+        super(40, f, p);
+        immage = blueShip;
+        health = 1000;
     }
 }
 class line{
@@ -52,6 +75,11 @@ class line{
     };
     //endregion
     private int step =0;
+
+    public line(field f, int i, int i1) {
+        area(f,i,i1);
+    }
+
     public boolean isEmpty(){
         for (enemy e:subjcts) {
             if(!e.isDead()){
@@ -61,20 +89,6 @@ class line{
         return true;
     }
 
-    public line(field f,ArrayList<position> places){
-
-        this.places = places;
-
-        subjcts.add(new enemy(15,f));
-        subjcts.add(new enemy(15,f));
-        subjcts.add(new enemy(15,f));
-        subjcts.add(new enemy(15,f));
-        places.add(new position(0 ,50));
-        places.add(new position(50,100));
-        places.add(new position(100,50));
-        places.add(new position(50,0));
-        this.places = a_to_A(sSquare);
-    }
     public line(field f,ArrayList<position> places,position p,int number){
 
         this.places = places;
